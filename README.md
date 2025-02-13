@@ -31,9 +31,10 @@ Finds the first non-repeating character. Returns `-1` if all characters repeat.
 
 ### Setup:
 1. Clone the repository.
-2. Install dependencies:  
+   `git clone https://github.com/Muqeetat/backend_development.git`
+3. Install dependencies:  
    `pip install -r requirements.txt`
-3. Run the app:  
+4. Run the app:  
    `uvicorn app.main:app --reload`
 
 ### API Docs:
