@@ -37,7 +37,7 @@ taskapi/
 
 1. Clone the repository:
    ```bash
-   git clone <repo_url>
+   git clone  git clone https://github.com/Muqeetat/backend_development.git
    cd taskapi
    ```
 2. Create a virtual environment and activate it:
