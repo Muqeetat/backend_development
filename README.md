@@ -30,14 +30,15 @@ Finds the first non-repeating character. Returns `-1` if all characters repeat.
 - Pagination for tasks
 
 ### Setup:
-1. Clone the repository.
-   `git clone  git clone https://github.com/Muqeetat/backend_development.git`
+1. Clone the repository:
+`git clone https://github.com/Muqeetat/backend_development.git`
+
 2. Install dependencies:  
-   `pip install -r requirements.txt`
+`pip install -r requirements.txt`
+
 3. Run the app:  
-   `uvicorn app.main:app --reload`
+`uvicorn app.main:app --reload`
 
 ### API Docs:
 Access via:  
 `http://127.0.0.1:8000/docs`
-
