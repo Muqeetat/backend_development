@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from enum import Enum
 from typing import Optional
 from datetime import datetime
@@ -15,14 +15,12 @@ class UserResponse(BaseModel):
     id : int
     name: str
     create_date: datetime
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class UserName(BaseModel):
     id: int
     name:str
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class Status(str, Enum):
     DONE = "done"
@@ -42,7 +40,7 @@ class TaskUpdate(BaseModel):
     status: Optional[str] = None
     due_date: Optional[datetime] = None
 
-class TaskResponse(Task):
+class TaskResponse(BaseModel):
     id : int
     title: str
     description: str
@@ -51,9 +49,19 @@ class TaskResponse(Task):
     due_date: datetime
     create_date: datetime
     owner_id: int
-    owner: UserName	
-    class Config:
-        from_attributes = True
+    owner: UserName
+    model_config = ConfigDict(from_attributes=True)
+
+class TaskResponse2(BaseModel):
+    id : int
+    title: str
+    description: str
+    category: str
+    status: str
+    due_date: datetime
+    owner_id: int
+    update_date: datetime
+    model_config = ConfigDict(from_attributes=True)
 
 class Token(BaseModel):
     access_token:str

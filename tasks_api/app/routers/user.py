@@ -12,10 +12,15 @@ router = APIRouter(
 
 @router.post("/",status_code=status.HTTP_201_CREATED,response_model=schemas.UserResponse)
 def create_user(user: schemas.User,db: Session = Depends(get_db)):
+
+    existing_user = db.query(models.User).filter(models.User.name == user.name).first()
+    if existing_user:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="User with this name already exists") 
+        
     hashed_password= utils.hash(user.password)
     user.password = hashed_password
 
-    new_user = models.User(**user.dict())
+    new_user = models.User(**user.model_dump())
     db.add(new_user)
     db.commit()
     db.refresh(new_user)

@@ -1,6 +1,6 @@
-from fastapi import FastAPI, HTTPException, Response, status, Depends, APIRouter
+from fastapi import FastAPI, HTTPException, Response, status, Depends, APIRouter,Query
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from .. import models, schemas,oauth2
 from ..database import get_db
 
@@ -20,6 +20,7 @@ def get_tasks(db: Session = Depends(get_db),current_user: dict = Depends(oauth2.
         models.Task.title.contains(search)).limit(limit).offset(skip).all()
     return tasks
 
+
 @router.get("/{id}",response_model=schemas.TaskResponse)
 def get_task_by_id(id: int, db: Session = Depends(get_db),current_user: dict = Depends(oauth2.get_current_user)):
 
@@ -31,7 +32,7 @@ def get_task_by_id(id: int, db: Session = Depends(get_db),current_user: dict = D
         raise HTTPException(status_code=403, detail=f"Not authorized to perform action")
     return task
 
-@router.get("/{category}", response_model=List[schemas.TaskResponse])  # Fetching tasks by category
+@router.get("/category/{category}", response_model=List[schemas.TaskResponse])  # Fetching tasks by category
 def get_tasks_by_category(category: str, db: Session = Depends(get_db), current_user: dict = Depends(oauth2.get_current_user),
     limit: int = Query(10, le=100),skip: int = Query(0, ge=0)):
     
@@ -44,7 +45,8 @@ def get_tasks_by_category(category: str, db: Session = Depends(get_db), current_
         raise HTTPException(status_code=404, detail=f"No tasks found in category '{category}'")
     return tasks  # Return the list of tasks
 
-@router.get("/{username}", response_model=List[schemas.TaskResponse])  # Fetching tasks by username
+
+@router.get("/user/{username}", response_model=List[schemas.TaskResponse])  # Fetching tasks by username
 def get_tasks_by_username(username: str, db: Session = Depends(get_db),current_user: dict = Depends(oauth2.get_current_user),
     limit: int = Query(10, le=100),skip: int = Query(0, ge=0)):
     user = db.query(models.User).filter(models.User.name == username).first()     # Query the User table to get the user by their username
@@ -56,6 +58,7 @@ def get_tasks_by_username(username: str, db: Session = Depends(get_db),current_u
         raise HTTPException(status_code=404, detail=f"No tasks found for user '{username}'") 
     return tasks  # Return the list of tasks
 
+
 @router.post("/",status_code=status.HTTP_201_CREATED,response_model=schemas.TaskResponse)
 def create_task(task: schemas.Task,db: Session = Depends(get_db),current_user: dict = Depends(oauth2.get_current_user)):
     print(current_user)
@@ -65,7 +68,8 @@ def create_task(task: schemas.Task,db: Session = Depends(get_db),current_user: d
     db.refresh(new_task)
     return new_task
 
-@router.put("/{id}")
+
+@router.put("/{id}", response_model=schemas.TaskResponse2)
 def update_task(id: int, updated_task: schemas.TaskUpdate,db: Session = Depends(get_db),current_user: dict = Depends(oauth2.get_current_user)):
     task = db.query(models.Task).filter(models.Task.id == id).first()
     if task == None:

@@ -14,6 +14,10 @@ CREATE DATABASE taskrecords;
 DROP TABLE IF EXISTS public.tasks;
 DROP TABLE IF EXISTS public.users;
 
+
+
+TRUNCATE TABLE tasks RESTART IDENTITY;
+DELETE FROM users
 -- ====================================================================
 -- Reset the sequence for 'tasks' table to the max ID value
 -- ====================================================================
