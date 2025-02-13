@@ -51,8 +51,14 @@ taskapi/
    ```
 4. Set up environment variables (example for `.env` file):
    ```env
-   DATABASE_URL=postgresql://user:password@localhost:5432/taskdb
-   SECRET_KEY=your_secret_key
+   DATABASE_HOSTNAME=
+  DATABASE_PORT=5432
+  DATABASE_PASSWORD=
+  DATABASE_NAME=taskrecords
+  DATABASE_USERNAME=
+  SECRET_KEY=09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+  ALGORITHM=HS256
+  ACCESS_TOKEN_EXPIRE_MINUTES=30
    ```
 5. Apply database migrations:
    ```bash
@@ -130,8 +136,8 @@ curl -X GET "http://127.0.0.1:8000/users/1"
 ### Task Management (task.py)
 
 #### Get All Tasks
-
-- **Endpoint:** `GET /tasks`
+    
+- **Endpoint:** `GET /tasks`  
 - **Headers:** `Authorization: Bearer <token>`
 - **Query Parameters:**
   - `limit`: Optional, default `10`, maximum `100`
@@ -149,7 +155,10 @@ curl -X GET "http://127.0.0.1:8000/users/1"
       "due_date": "2025-02-12T12:00:00",
       "create_date": "2025-02-12T12:00:00",
       "owner_id": 1,
-      "owner": "UserName"
+          "owner": {
+		  "id": 1,
+		  "name": "username"
+	          }
     }
   ]
   ```
@@ -222,10 +231,10 @@ curl -X GET "http://127.0.0.1:8000/users/1"
       "due_date": "2025-02-12T12:00:00",
       "create_date": "2025-02-12T12:00:00",
       "owner_id": 1,
-      "owner": {
-		"id": 1,
-		"name": "username"
-	}
+          "owner": {
+		  "id": 1,
+		  "name": "username"
+	          }
     }
   ]
   ```
@@ -256,9 +265,9 @@ curl -X GET "http://127.0.0.1:8000/users/1"
     "create_date": "2025-02-12T12:00:00",
     "owner_id": 1,
     "owner": {
-		"id": 1,
-		"name": "username"
-	}
+		  "id": 1,
+		  "name": "username"
+	          }
   }
   ```
 
@@ -284,10 +293,7 @@ curl -X GET "http://127.0.0.1:8000/users/1"
     "due_date": "2025-02-12T12:00:00",
     "create_date": "2025-02-12T12:00:00",
     "owner_id": 1,
-    "owner": {
-		"id": 1,
-		"name": "username"
-	}
+    "update_date": "2025-02-12T22:00:00"
   }
   ```
 
