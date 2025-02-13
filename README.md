@@ -3,7 +3,7 @@
 ## Section One: String Compression & First Non-Repeating Character
 
 ### 1. String Compression
-**Function**: `compress(string: str) -> str`  
+**Function**: `compress(string: str)`  
 Compresses a string by counting consecutive characters. If the compressed string is longer or equal to the original, returns the original string.
 
 **Test Cases**:
@@ -14,7 +14,7 @@ assert compress('a') == 'a'
 ```
 
 ### 2. First Non-Repeating Character
-**Function**: `first_non_repeating(string: str) -> str`  
+**Function**: `first_non_repeat(string: str)`  
 Finds the first non-repeating character. Returns `-1` if all characters repeat.
 
 **Example**:
