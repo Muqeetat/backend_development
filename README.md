@@ -40,4 +40,3 @@ Finds the first non-repeating character. Returns `-1` if all characters repeat.
 ### API Docs:
 Access via:  
 `http://127.0.0.1:8000/docs`
-
